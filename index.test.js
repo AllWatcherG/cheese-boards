@@ -63,7 +63,40 @@ describe('Cheese Board Project Tests', ()=>{
         }
     });
 
+    test('One to many test + Eager', async() => {
+        await User.bulkCreate(seedUser)
+        await Board.bulkCreate(seedBoard)
+        const testAxl = await User.findByPk(1)
+  
+        const testBoards = await Board.findAll()
+  
+        await testAxl.addBoards(testBoards)
+  
+        let verifyData = await User.findByPk(1, {include:Board})
+        expect(verifyData.Boards.length).toBe(3)
 
+    });
+
+    test('Many to Many + Eager', async()=>{
+        await Board.bulkCreate(seedBoard)
+        await Cheese.bulkCreate(seedCheese)
+        let testBoard = await Board.findAll()
+        let testCheese = await Cheese.findAll()
+        for(let i = 0; i < testBoard.length; i++){
+            await testBoard[i].addCheeses(testCheese)
+        }
+        for(let i = 0; i < testCheese.length; i++){
+            await testCheese[i].addBoards(testBoard)
+        }
+
+        const verifyBoard= await Board.findByPk(1, {include:Cheese})
+        test = verifyBoard
+        const verifyCheese = await Cheese.findByPk(1, {include: Board})
+        test2 = verifyCheese
+        expect(test.Cheeses.length).toBe(3)
+        expect(test2.Boards.length).toBe(3)
+
+    });
 
 
 
