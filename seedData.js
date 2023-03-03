@@ -2,19 +2,19 @@ const seedBoard = [
     {
         type: 'Wood',
         description: 'Woody Flavor',
-        rating: '3.5'
+        rating: 3.5
         
     },
     {
         type: 'Cobblestone',
         description: 'rocky flavor',
-        rating: '4'
+        rating: 4
         
     },
     {
         type: 'Plastic',
         description: 'chemical flavor',
-        rating: '1'
+        rating: 1
         
     }
 
@@ -49,7 +49,7 @@ const seedUser = [
     }
 ]
 
-modeule.exports ={
+module.exports ={
     seedCheese,
     seedUser,
     seedBoard
